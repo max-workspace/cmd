@@ -1,0 +1,9 @@
+desc: test
+status_list:
+    - 1
+    - 2
+    - 3
+status_map:
+    test1: 1
+    test2: 2
+    test3: 3

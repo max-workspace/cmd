@@ -1,0 +1,24 @@
+logger:
+    path_dir: log/
+db:
+    test:
+        uri: 10.151.240.18:4444
+        user: chunlei
+        passwd: MhxzKhl
+        db_name: netdisk_membership
+        read_timeout_ms: 3000
+        write_timeout_ms: 1000
+        timeout_ms: 1000
+        charset: utf8
+        conn_max_open: 3
+        conn_max_idle: 2
+redis:
+    test:
+        uri: 10.197.74.31:2040
+        max_idle: 5
+        max_active: 10
+        idle_time_out_s: 60
+        wait: false
+        conn_timeout_ms: 1000
+        read_timeout_ms: 3000
+        write_timeout_ms: 1000
