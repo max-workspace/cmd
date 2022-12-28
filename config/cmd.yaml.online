@@ -1,5 +1,7 @@
 logger:
     path_dir: log/
+    level: 4
+    report_caller: true
 db:
     test:
         uri: 10.151.240.18:4444
