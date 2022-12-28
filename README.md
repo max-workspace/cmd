@@ -18,19 +18,19 @@
 db、redis连接池存放在全局变量中，用时直接通过名称获取对应连接。
 
 ## 3、目录
-application 离线脚本全局变量，内部包含了redis、mysql连接池，log对象、命令行参数。
-cmd 里面包含了在router注册的命令行入口
-config 离线脚本的全局配置
-models - dao 直接与数据库进行交互
-models - errors 自定义错误对象
-models - protocol 内部协议
-router 命令行参数注册配置
-service - page 针对具体业务的逻辑
-service - data 可被不同page复用的业务处理能力
-utils - 比较独立的跟业务相关性不大的工具类能力
+application 离线脚本全局变量，内部包含了redis、mysql连接池，log对象、命令行参数。  
+cmd 里面包含了在router注册的命令行入口  
+config 离线脚本的全局配置  
+models - dao 直接与数据库进行交互  
+models - errors 自定义错误对象  
+models - protocol 内部协议  
+router 命令行参数注册配置  
+service - page 针对具体业务的逻辑  
+service - data 可被不同page复用的业务处理能力  
+utils - 比较独立的跟业务相关性不大的工具类能力  
 
 ## 4、快速启动
-1、在cmd目录下新建一个用于处理具体命令的目录。
-2、在新目录中创建一个base.go文件，编写一个实现Cmd接口的路由注册函数。
-3、将这个函数写入router的map中进行命令注册。
-4、将具体业务写入Cmd接口的Run方法中。
+1、在cmd目录下新建一个用于处理具体命令的目录。  
+2、在新目录中创建一个base.go文件，编写一个实现Cmd接口的路由注册函数。  
+3、将这个函数写入router的map中进行命令注册。  
+4、将具体业务写入Cmd接口的Run方法中。  
