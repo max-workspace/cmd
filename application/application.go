@@ -27,7 +27,6 @@ var (
 )
 
 // Application 全局应用
-
 type Application struct {
 	// CmdParams 命令行参数
 	CmdParams application.CmdParams `json:"cmd_params"`

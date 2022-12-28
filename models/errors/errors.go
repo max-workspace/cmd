@@ -12,7 +12,6 @@ func (e *Error) Error() string {
 }
 
 // 自定义错误码
-
 const (
 	ErrorCodeDefault            = 100000
 	ErrorCodeCmdNotFind         = 100001
@@ -24,7 +23,6 @@ const (
 )
 
 // 自定义错误
-
 var (
 	ErrorDefault            = &Error{Code: ErrorCodeDefault, Msg: "service error"}
 	ErrorCmdNotFind         = &Error{Code: ErrorCodeCmdNotFind, Msg: "cmd not find"}

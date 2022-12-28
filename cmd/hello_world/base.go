@@ -29,7 +29,6 @@ const (
 )
 
 // CMD 子命令对象
-
 type CMD struct {
 	cmd.BaseCMD
 

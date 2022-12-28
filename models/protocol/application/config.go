@@ -9,7 +9,6 @@ const (
 )
 
 // Conf 全局配置
-
 type Config struct {
 	Logger LoggerConfig           `yaml:"logger"`
 	DB     map[string]DBConfig    `yaml:"db"`
