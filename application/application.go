@@ -20,7 +20,7 @@ const (
 
 var (
 	// 应用单例
-	App *Application
+	app *Application
 
 	// 保证整体服务实例只启动一次
 	onceApp sync.Once
@@ -45,14 +45,14 @@ type Application struct {
 func InitApp(cmdParams application.CmdParams, cmd cmd.Cmd) *Application {
 	onceApp.Do(func() {
 		// 初始化应用
-		App = new(Application)
-		App.CmdParams = cmdParams
-		App.ConfigPath = cmd.GetConfigPath()
-		App.Redis = make(map[string]*redis.Pool)
-		App.DB = make(map[string]*sql.DB)
+		app = new(Application)
+		app.CmdParams = cmdParams
+		app.ConfigPath = cmd.GetConfigPath()
+		app.Redis = make(map[string]*redis.Pool)
+		app.DB = make(map[string]*sql.DB)
 
 		// 基于环境信息以及基础配置地址生成最终配置加载地址
-		realPath, err := GetConfigPath(App.ConfigPath, cmdParams)
+		realPath, err := GetConfigPath(app.ConfigPath, cmdParams)
 		if err != nil {
 			panic(fmt.Sprintf("GetConfigPath fail! err=[%v]\n", err))
 		}
@@ -84,7 +84,7 @@ func InitApp(cmdParams application.CmdParams, cmd cmd.Cmd) *Application {
 			if err != nil {
 				panic(fmt.Sprintf("redis init fail! redisConfig=[%v] err=[%v]\n", redisConfig, err))
 			}
-			App.Redis[redisName] = redisPool
+			app.Redis[redisName] = redisPool
 		}
 
 		// 基于命令配置选择需要初始化mysql
@@ -98,15 +98,15 @@ func InitApp(cmdParams application.CmdParams, cmd cmd.Cmd) *Application {
 			if err != nil {
 				panic(fmt.Sprintf("db init fail! dbConfig=[%v] err=[%v]\n", dbConfig, err))
 			}
-			App.DB[dbName] = db
+			app.DB[dbName] = db
 		}
 	})
-	return App
+	return app
 }
 
 // NewApp 获取应用实例
 func NewApp() *Application {
-	return App
+	return app
 }
 
 // GetConfigPath 根据环境信息以及基础配置路径

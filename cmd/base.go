@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"context"
 	"time"
 
 	"max.workspace.com/cmd/application"
@@ -8,6 +9,7 @@ import (
 )
 
 type BaseCMD struct {
+	Ctx          context.Context
 	RunStartTime time.Time
 	RunEndTime   time.Time
 }
@@ -17,8 +19,21 @@ func (c *BaseCMD) GetConfigPath() string {
 	return application.ConfigPath
 }
 
+// Exec 命令行命令注册所需接口实现 执行的模版
+func (c *BaseCMD) Exec(cmd cmd.Cmd) {
+	// 子命令初始化
+	cmd.Init(cmd)
+
+	// 基于命令行参数、子命令对象，执行对应命令
+	cmd.RunBefore()
+	cmd.Run()
+	cmd.RunAfter()
+}
+
 // Init 命令行命令注册所需接口实现 初始化
 func (c *BaseCMD) Init(cmd cmd.Cmd) {
+	c.Ctx = context.Background()
+
 	cmd.ExtraConfigInit()
 }
 

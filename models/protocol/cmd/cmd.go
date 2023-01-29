@@ -8,6 +8,7 @@ type Cmd interface {
 	ExtraConfigInit()
 
 	// 基类已经实现的，允许子类重写的方法
+	Exec(cmd Cmd)
 	Init(cmd Cmd)
 	GetConfigPath() string
 	RunBefore()

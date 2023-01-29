@@ -37,6 +37,7 @@ func initRedis(config application.RedisConfig) (redisPool *redis.Pool, err error
 // GetRedisConn 获取redis连接
 func GetRedisConn(redisName string) (redisConn redis.Conn, err error) {
 	// 检测全局对象是否初始化
+	App := NewApp()
 	if App == nil {
 		err = errors.ErrorApplicationNotInit
 		return

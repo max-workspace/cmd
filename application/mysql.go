@@ -26,6 +26,7 @@ func initDB(config application.DBConfig) (db *sql.DB, err error) {
 // GetDBHandle 获取db句柄
 func GetDBHandle(dbName string) (db *sql.DB, err error) {
 	// 检测全局对象是否初始化
+	App := NewApp()
 	if App == nil {
 		err = errors.ErrorApplicationNotInit
 		return

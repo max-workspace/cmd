@@ -30,13 +30,8 @@ func main() {
 	// 基于命令行参数、子命令配置，初始化全局对象
 	application.InitApp(cmdParams, cmd)
 
-	// 子命令初始化
-	cmd.Init(cmd)
-
-	// 基于命令行参数、子命令对象，执行对应命令
-	cmd.RunBefore()
-	cmd.Run()
-	cmd.RunAfter()
+	// 子命令执行
+	cmd.Exec(cmd)
 }
 
 // parseCommandLineParam 解析命令行参数
