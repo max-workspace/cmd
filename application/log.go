@@ -57,7 +57,7 @@ func initLog(cmdParams application.CmdParams, config application.LoggerConfig) {
 	// 生成日志文件名称
 	logFile := config.PathDir + cmdParams.Cmd + ".log"
 	// 设置日志持久化的信息
-	writer, err := os.OpenFile(logFile, os.O_WRONLY|os.O_CREATE, 0755)
+	writer, err := os.OpenFile(logFile, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0755)
 	if err != nil {
 		panic(fmt.Sprintf("OpenFile fail! err=[%v]\n", err))
 	}

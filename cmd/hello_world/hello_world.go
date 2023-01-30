@@ -18,7 +18,7 @@ func (c *CMD) Run() {
 	log.Info(fmt.Sprintf("cmd=[%+v] ExtraConfig=[%+v]", app.CmdParams.Cmd, c.ExtraConfig))
 
 	// 展示redis使用
-	helloworldPageService := helloworld.New()
+	helloworldPageService := helloworld.New(c.Ctx)
 	ret, err := helloworldPageService.GetRedisHelloWorld()
 	log.Info(fmt.Sprintf("GetRedisHelloWorld! err=[%+v] ret=[%+v]", err, ret))
 	if err != nil {
@@ -30,13 +30,17 @@ func (c *CMD) Run() {
 	defer cancel()
 	dbHandle, err := application.GetDBHandle(app_protocol.DBNameTest)
 	if err != nil {
-		fmt.Printf("GetDBHandle fail! err:%+v\n", err)
+		log.Warn(fmt.Sprintf("GetDBHandle fail! err=[%+v] dbHandle=[%v]", err, dbHandle))
+		return
 	}
 	sql := fmt.Sprintf("select table_name from information_schema.tables limit 2;")
 	rows, err := dbHandle.QueryContext(ctx, sql)
 	if err != nil {
-		fmt.Printf("QueryContext fail! sql:%+v err:%+v\n", sql, err)
+		log.Warn(fmt.Sprintf("QueryContext fail! sql=[%+v] err=[%+v]", sql, err))
+		return
 	}
+	defer rows.Close()
+
 	tableNameList := make([]string, 0)
 	for rows.Next() {
 		var tableName string
@@ -44,12 +48,16 @@ func (c *CMD) Run() {
 			&tableName,
 		)
 		if err != nil {
-			fmt.Printf("rows.Scan fail! err:%+v\n", err)
+			log.Warn(fmt.Printf("rows.Scan fail! err=[%+v]", err))
+			continue
 		}
-
 		tableNameList = append(tableNameList, tableName)
 	}
-	fmt.Printf("tableNameList:%+v\n", tableNameList)
+	err = rows.Err()
+	if err != nil {
+		log.Warn(fmt.Printf("rows.Err fail! err=[%+v]", err))
+	}
 
+	fmt.Printf("tableNameList:%+v\n", tableNameList)
 	log.Info(fmt.Sprintf("cmd:%v end", app.CmdParams.Cmd))
 }

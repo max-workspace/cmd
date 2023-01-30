@@ -16,7 +16,7 @@ db:
         conn_max_idle: 2
 redis:
     test:
-        uri: 10.197.74.31:2040
+        uri: 10.102.32.22:2008
         max_idle: 5
         max_active: 10
         idle_time_out_s: 60
